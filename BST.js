@@ -45,13 +45,37 @@ class BST {
 
 	insert(val, currentNode = this.root) {
 		// if root is null, create new node at root
-		// else compare val to root val
-		// if val is less than current node val, check for left node, if no left node, set newNode here
-		// else if there is a left node, call insert again
-		// if val is greater than root val, check for right node, if no right node, set newNode here
-		// else if there is a right node, call insert again
+		if (!this.root) {
+			this.root = new Node(val);
+			return this;
+		}
+		// is val less than currentNode val
+		if (val < currentNode.val) {
+			// if yes check for left node, if no left node, set newNode here
+			if (!currentNode.left) {
+				currentNode.left = new Node(val);
+				return this;
+			} else {
+				// if there is a left node, call insert again
+				return this.insert(val, currentNode.left);
+			}
+		}
+
+		// is val is greater than root val
+		if (val > currentNode.val) {
+			// check for right node, if no right node, set newNode here
+			if (!currentNode.right) {
+				currentNode.right = new Node(val);
+				return this;
+				// else if there is a right node, call insert again
+			} else {
+				return this.insert(val, currentNode.right);
+			}
+		}
 		// if val is equal to current val, return undefined to prevent duplication
-		// return tree
+		if (val === currentNode.val) return undefined;
+
+		return this;
 	}
 }
 
