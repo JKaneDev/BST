@@ -17,9 +17,16 @@ class BST {
 
 	buildTree(array, startIndex, endIndex) {
 		// base case: if start index is greater than end index
+		if (startIndex > endIndex) return null;
 		// calculate middle of array
+		let middle = startIndex + endIndex / 2;
 		// create new node
+		let newNode = new Node(array[middle]);
 		// recursively call create tree on left node
+		newNode.left = createTree(array, start, middle - 1);
 		// recursively call create tree on right node
+		newNode.right = createTree(array, middle + 1, end);
+
+		return this;
 	}
 }
