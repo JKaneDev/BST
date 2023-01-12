@@ -77,6 +77,30 @@ class BST {
 
 		return this;
 	}
+
+	find(val, currentNode = this.root) {
+		// if root is null, tree empty, return
+		if (!this.root) return null;
+		let currentNode = this.root;
+
+		// if val === root val, return root
+		if (val === currentNode.val) return currentNode;
+
+		// if val < root val, move pointer, check left node, repeat step 2
+		if (val < currentNode.val) {
+			return this.find(val, currentNode.left);
+		}
+
+		// if val > root val, check right node, repeat step 2
+		if (val > currentNode.val) {
+			return this.find(val, currentNode.right);
+		}
+	}
+
+	delete(val) {
+		let currentNode = this.root;
+		if (!currentNode) return null;
+	}
 }
 
 const newTree = new BST([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
