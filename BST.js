@@ -97,9 +97,18 @@ class BST {
 		}
 	}
 
-	delete(val) {
-		let currentNode = this.root;
-		if (!currentNode) return null;
+	delete(currentNode = this.root, val) {
+		// if currentNode is null, return null
+		// compare val with currentNode val
+		// if val < currentNode val: recursively call delete on currentNode.left
+		// if val > currentNode.val: recursively call delete on currentNode.right
+		// if val === currentNode.val:
+		// check if node has no left child, if so: return right child
+		// check if node has no right child, if so: return left child
+		// if node has two children: find min val node of it's right subtree
+		// replace currentNode.val with minNode.val
+		// recursively call delete on right child node with the minNode.val
+		// return root of tree
 	}
 }
 
