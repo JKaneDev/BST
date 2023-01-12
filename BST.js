@@ -7,6 +7,8 @@ class Node {
 }
 
 class BST {
+	set = new Set();
+
 	constructor(array) {
 		this.startIndex = 0;
 		this.endIndex = array.length - 1;
@@ -15,9 +17,13 @@ class BST {
 
 	buildTree(array, startIndex, endIndex) {
 		// base case: if start index is greater than end index
-		if (startIndex > endIndex) return null;
+		if (startIndex > endIndex) return;
 		// calculate middle of array
 		let middle = Math.floor((startIndex + endIndex) / 2);
+		// check if val is unique, return if not
+		if (this.set.has(array[middle])) return;
+		// add to set if val is unique
+		this.set.add(array[middle]);
 		// create new node
 		let newNode = new Node(array[middle]);
 		// recursively call create tree on left node
@@ -81,8 +87,6 @@ class BST {
 	find(val, currentNode = this.root) {
 		// if root is null, tree empty, return
 		if (!this.root) return null;
-		let currentNode = this.root;
-
 		// if val === root val, return root
 		if (val === currentNode.val) return currentNode;
 
@@ -99,7 +103,7 @@ class BST {
 
 	delete(currentNode = this.root, val) {
 		// if currentNode is null, return null
-		if (currentNode === null) return null;
+		if (!currentNode) return null;
 		// compare val with currentNode val
 		// if val < currentNode val: recursively call delete on currentNode.left
 		if (val < currentNode.val) {
@@ -122,24 +126,25 @@ class BST {
 			}
 		}
 		// if node has two children: find min val node of it's right subtree
-		let closestVal = this.findClosestVal(currentNode.right);
 		// replace currentNode.val with closestVal.val
-		currentNode.val = closestVal.val;
+		currentNode.val = this.findClosestVal(currentNode.right);
 		// recursively call delete on right child node with the closestVal.val
-		currentNode.right = this.delete(currentNode.right, closestVal.val);
+		currentNode.right = this.delete(currentNode.right, currentNode.val);
 		// return root of tree
 		return currentNode;
 	}
 
 	findClosestVal(node) {
+		let currentNode = node;
 		// while node has left child
-		while (node.left) {
-			// set node ot be left child
-			node = node.left;
+		while (currentNode.left) {
+			// set node to be left child
+			currentNode = currentNode.left;
 		}
-		return node;
+		return currentNode.val;
 	}
 }
 
 const newTree = new BST([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 newTree.prettyPrint(newTree.root);
+// newTree.delete(newTree.root, 7);
