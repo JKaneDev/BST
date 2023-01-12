@@ -99,16 +99,45 @@ class BST {
 
 	delete(currentNode = this.root, val) {
 		// if currentNode is null, return null
+		if (currentNode === null) return null;
 		// compare val with currentNode val
 		// if val < currentNode val: recursively call delete on currentNode.left
+		if (val < currentNode.val) {
+			currentNode.left = this.delete(currentNode.left, val);
+		}
 		// if val > currentNode.val: recursively call delete on currentNode.right
+		if (val > currentNode.val) {
+			currentNode.right = this.delete(currentNode.right, val);
+		}
 		// if val === currentNode.val:
-		// check if node has no left child, if so: return right child
-		// check if node has no right child, if so: return left child
+		else {
+			// check if node has no left child, if so: return right child
+			if (!currentNode.left) {
+				return currentNode.right;
+			}
+
+			// check if node has no right child, if so: return left child
+			else if (!currentNode.right) {
+				return currentNode.left;
+			}
+		}
 		// if node has two children: find min val node of it's right subtree
-		// replace currentNode.val with minNode.val
-		// recursively call delete on right child node with the minNode.val
+		let closestVal = this.findClosestVal(currentNode.right);
+		// replace currentNode.val with closestVal.val
+		currentNode.val = closestVal.val;
+		// recursively call delete on right child node with the closestVal.val
+		currentNode.right = this.delete(currentNode.right, closestVal.val);
 		// return root of tree
+		return currentNode;
+	}
+
+	findClosestVal(node) {
+		// while node has left child
+		while (node.left) {
+			// set node ot be left child
+			node = node.left;
+		}
+		return node;
 	}
 }
 
