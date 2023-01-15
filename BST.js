@@ -182,6 +182,23 @@ class BST {
 		// add one to value to account for starting node
 		return Math.max(leftHeight, rightHeight) + 1;
 	}
+
+	depth(node = this.root, target, depth = 0) {
+		if (!node) return -1;
+		// initialize depth count
+		// if node val = target val return depth
+		if (node.val === target) return depth;
+		// if target val < node val: recursively call depth on left node
+		else if (target < node.val) {
+			this.depth(node.left, target, depth + 1);
+		}
+		// if target val > node val: recursively call depth on right node
+		else {
+			this.depth(node.right, target, depth + 1);
+		}
+
+		return depth;
+	}
 }
 
 const newTree = new BST([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
