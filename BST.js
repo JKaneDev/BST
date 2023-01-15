@@ -101,50 +101,39 @@ class BST {
 		}
 	}
 
-	delete(currentNode = this.root, val) {
-		// if currentNode is null, return null
-		if (!currentNode) return null;
-		// compare val with currentNode val
-		// if val < currentNode val: recursively call delete on currentNode.left
-		if (val < currentNode.val) {
-			currentNode.left = this.delete(currentNode.left, val);
-		}
-		// if val > currentNode.val: recursively call delete on currentNode.right
-		if (val > currentNode.val) {
-			currentNode.right = this.delete(currentNode.right, val);
-		}
-		// if val === currentNode.val:
-		else {
-			// check if node has no left child, if so: return right child
-			if (!currentNode.left) {
-				return currentNode.right;
-			}
-
-			// check if node has no right child, if so: return left child
-			else if (!currentNode.right) {
-				return currentNode.left;
-			}
-		}
-		// if node has two children: find min val node of it's right subtree
-		// replace currentNode.val with closestVal.val
-		currentNode.val = this.findClosestVal(currentNode.right);
-		// recursively call delete on right child node with the closestVal.val
-		currentNode.right = this.delete(currentNode.right, currentNode.val);
-		// return root of tree
-		return currentNode;
+	deleteNode(val) {
+		// if !root return null
+		// call deleteNodeHelper recursively on root with given val
 	}
 
-	findClosestVal(node) {
-		let currentNode = node;
+	deleteNodeHelper(node, val) {
+		// if node = null, return it
+		// if val < node.val: node.left = deleteNodeHHelper
+		// else if val > node.valL node.right = deleteNodeHelper
+		// else:
+		// if !node.left return node.right
+		// else if !node.right return node.left
+		// else:
+		// findClosestMinVal
+		// assign to node val
+		// call deleteNodeHelper recursively to delete duplicate node
+		// return current Node
+	}
+
+	findClosestMinVal(val) {
 		// while node has left child
-		while (currentNode.left) {
-			// set node to be left child
-			currentNode = currentNode.left;
-		}
-		return currentNode.val;
+		// left node = current node
 	}
-}
 
 const newTree = new BST([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 newTree.prettyPrint(newTree.root);
-// newTree.delete(newTree.root, 7);
+newTree.deleteNode(newTree.root, 6345);
+newTree.prettyPrint(newTree.root);
+newTree.deleteNode(newTree.root, 7);
+newTree.prettyPrint(newTree.root);
+newTree.deleteNode(newTree.root, 67);
+newTree.prettyPrint(newTree.root);
+newTree.deleteNode(newTree.root, 324);
+newTree.prettyPrint(newTree.root);
+newTree.deleteNode(newTree.root, 6345);
+newTree.prettyPrint(newTree.root);
