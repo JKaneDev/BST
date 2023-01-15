@@ -224,9 +224,18 @@ class BST {
 		}
 		return numbers;
 	}
-}
 
-const newTree = new BST([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
-newTree.prettyPrint(newTree.root);
-newTree.deleteNode(1);
-newTree.prettyPrint(newTree.root);
+	driverScript() {
+		// get random numbers array and generate tree
+		// check if array is balanced
+		// log levelOrdered tree
+		// log preOrdered tree
+		// log postOrdered tree
+		// log inOrder tree
+		// unbalance tree
+		// confirm tree is unbalanced
+		// balance tree with reBalance
+		// confirm tree is balanced
+		// log again in levelOrder, preOrder, postOrder and inOrder
+	}
+}
