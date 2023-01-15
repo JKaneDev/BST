@@ -170,6 +170,15 @@ class BST {
 		this.inOrder(node.right);
 		operation(node.val);
 	}
+
+	height(node) {
+		// if node has no children
+		if (!node.left && !node.right) return 0;
+		// if node has children: check height of left subtree
+		// repeat for right subtree
+		// compare left height to right height: take greater value
+		// add one to value to account for starting node
+	}
 }
 
 const newTree = new BST([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
