@@ -190,15 +190,21 @@ class BST {
 		if (node.val === target) return depth;
 		// if target val < node val: recursively call depth on left node
 		else if (target < node.val) {
-			this.depth(node.left, target, depth + 1);
+			return this.depth(node.left, target, depth + 1);
 		}
 		// if target val > node val: recursively call depth on right node
 		else {
-			this.depth(node.right, target, depth + 1);
+			return this.depth(node.right, target, depth + 1);
 		}
-
-		return depth;
 	}
+
+	isBalanced(node = this.root) {
+		if (!node) return;
+		// check height of left subtree with height function
+		// check height of right subtree with height function
+		// if difference > 1 return false
+		// return recursive isBalanced calls for left and right to traverse the whole tree
+
 }
 
 const newTree = new BST([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
