@@ -216,6 +216,14 @@ class BST {
 		this.inOrder(node, array.push(node.val));
 		return this.buildTree(array);
 	}
+
+	getRandomNumbers(howMany) {
+		let numbers = [];
+		for (let i = 0; i < howMany; i++) {
+			numbers.push(Math.floor(Math.random() * 100));
+		}
+		return numbers;
+	}
 }
 
 const newTree = new BST([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
