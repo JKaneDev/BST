@@ -10,28 +10,23 @@ class BST {
 	set = new Set();
 
 	constructor(array) {
-		this.startIndex = 0;
-		this.endIndex = array.length - 1;
-		this.root = this.buildTree(array, this.startIndex, this.endIndex);
+		// removes duplicates by creating a new set, sorts array to ensure balanced BST
+		const sortedArray = [...new Set(array)].sort((a, b) => a - b);
+		console.log(sortedArray);
+		this.root = this.buildTree(sortedArray);
 	}
 
-	buildTree(array, startIndex, endIndex) {
-		// base case: if start index is greater than end index
-		if (startIndex > endIndex) return;
-		// calculate middle of array
-		let middle = Math.floor((startIndex + endIndex) / 2);
-		// check if val is unique, return if not
-		if (this.set.has(array[middle])) return;
-		// add to set if val is unique
-		this.set.add(array[middle]);
-		// create new node
-		let newNode = new Node(array[middle]);
-		// recursively call create tree on left node
-		newNode.left = this.buildTree(array, startIndex, middle - 1);
-		// recursively call create tree on right node
-		newNode.right = this.buildTree(array, middle + 1, endIndex);
+	buildTree(array) {
+		if (array.length === 0) return null;
 
-		return newNode;
+		let middle = Math.floor(array.length / 2);
+
+		let root = new Node(array[middle]);
+
+		root.left = this.buildTree(array.slice(0, middle));
+		root.right = this.buildTree(array.slice(middle + 1));
+
+		return root;
 	}
 
 	prettyPrint(node, prefix = '', isLeft = true) {
@@ -86,7 +81,7 @@ class BST {
 
 	find(val, currentNode = this.root) {
 		// if root is null, tree empty, return
-		if (!this.root) return null;
+		if (!this.currentNode) return null;
 		// if val === root val, return root
 		if (val === currentNode.val) return currentNode;
 
@@ -102,38 +97,38 @@ class BST {
 	}
 
 	deleteNode(val) {
-		// if !root return null
-		// call deleteNodeHelper recursively on root with given val
+		if (!this.root) return null;
+		// if (!this.find(val)) return this.root;
+		this.root = this.deleteNodeHelper(this.root, val);
 	}
 
 	deleteNodeHelper(node, val) {
-		// if node = null, return it
-		// if val < node.val: node.left = deleteNodeHHelper
-		// else if val > node.valL node.right = deleteNodeHelper
-		// else:
-		// if !node.left return node.right
-		// else if !node.right return node.left
-		// else:
-		// findClosestMinVal
-		// assign to node val
-		// call deleteNodeHelper recursively to delete duplicate node
-		// return current Node
+		if (!node) return node;
+		if (val < node.val) node.left = this.deleteNodeHelper(node.left, val);
+		else if (val > node.val)
+			node.right = this.deleteNodeHelper(node.right, val);
+		else {
+			if (!node.left) return node.right;
+			else if (!node.right) return node.left;
+			else {
+				let closestMinVal = this.findClosestMinVal(val);
+				node.val = closestMinVal.val;
+				node.right = this.deleteNodeHelper(node.right, closestMinVal.val);
+			}
+		}
+
+		return node;
 	}
 
-	findClosestMinVal(val) {
-		// while node has left child
-		// left node = current node
+	findClosestMinVal(node) {
+		while (node.left) {
+			node = node.left;
+		}
+		return node;
 	}
+}
 
 const newTree = new BST([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
 newTree.prettyPrint(newTree.root);
-newTree.deleteNode(newTree.root, 6345);
-newTree.prettyPrint(newTree.root);
-newTree.deleteNode(newTree.root, 7);
-newTree.prettyPrint(newTree.root);
-newTree.deleteNode(newTree.root, 67);
-newTree.prettyPrint(newTree.root);
-newTree.deleteNode(newTree.root, 324);
-newTree.prettyPrint(newTree.root);
-newTree.deleteNode(newTree.root, 6345);
+newTree.deleteNode(1);
 newTree.prettyPrint(newTree.root);
