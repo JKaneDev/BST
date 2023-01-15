@@ -126,6 +126,25 @@ class BST {
 		}
 		return node;
 	}
+
+	levelOrder(node = this.root, operation) {
+		if (node == null) return node;
+
+		let operand;
+		let queue = [];
+		queue.push(root);
+		// while queue is not empty
+		while (queue.length > 0) {
+			// if node.left: add to queue
+			if (node.left) queue.push(node.left);
+			// if node.right: add to queue
+			if (node.right) queue.push(node.right);
+			// dequeue first element from queue, store in operand
+			operand = queue.pop();
+			// perform given operation on operand
+			operation(operand);
+		}
+	}
 }
 
 const newTree = new BST([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
