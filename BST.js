@@ -201,10 +201,14 @@ class BST {
 	isBalanced(node = this.root) {
 		if (!node) return;
 		// check height of left subtree with height function
+		let leftHeight = this.height(node.left);
 		// check height of right subtree with height function
+		let rightHeight = this.height(node.right);
 		// if difference > 1 return false
+		if (leftHeight - rightHeight > 1) return false;
 		// return recursive isBalanced calls for left and right to traverse the whole tree
-
+		return this.isBalanced(node.left) && this.isBalanced(node.right);
+	}
 }
 
 const newTree = new BST([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
