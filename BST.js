@@ -209,6 +209,13 @@ class BST {
 		// return recursive isBalanced calls for left and right to traverse the whole tree
 		return this.isBalanced(node.left) && this.isBalanced(node.right);
 	}
+
+	reBalance(node = this.root) {
+		if (!node) return;
+		let array = [];
+		this.inOrder(node, array.push(node.val));
+		return this.buildTree(array);
+	}
 }
 
 const newTree = new BST([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
