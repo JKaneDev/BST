@@ -173,11 +173,14 @@ class BST {
 
 	height(node) {
 		// if node has no children
-		if (!node.left && !node.right) return 0;
+		if (!node) return 0;
 		// if node has children: check height of left subtree
+		let leftHeight = this.height(node.left);
 		// repeat for right subtree
+		let rightHeight = this.height(node.right);
 		// compare left height to right height: take greater value
 		// add one to value to account for starting node
+		return Math.max(leftHeight, rightHeight) + 1;
 	}
 }
 
