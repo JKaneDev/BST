@@ -148,10 +148,16 @@ class BST {
 
 	inOrder(node = this.root, operation) {
 		// if !node return null
+		if (node == null) return null;
 		// recursively call inorder on node.left
+		this.inOrder(node.left, operation);
 		// call operation on nodes from left to root
+		operation(node.val);
 		// recursively call inorder on node.right
+		this.inOrder(node.right, operation);
 	}
+
+	preOrder(node = this.root, operation) {}
 }
 
 const newTree = new BST([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
