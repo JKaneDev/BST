@@ -157,7 +157,19 @@ class BST {
 		this.inOrder(node.right, operation);
 	}
 
-	preOrder(node = this.root, operation) {}
+	preOrder(node = this.root, operation) {
+		if (!node) return;
+		operation(node.val);
+		this.inOrder(node.left);
+		this.inOrder(node.right);
+	}
+
+	postOrder(node = this.root, operation) {
+		if (!node) return;
+		this.inOrder(node.left);
+		this.inOrder(node.right);
+		operation(node.val);
+	}
 }
 
 const newTree = new BST([1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]);
