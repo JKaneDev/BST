@@ -127,22 +127,26 @@ class BST {
 		return node;
 	}
 
-	levelOrder(node = this.root) {
-		if (node == null) return node;
+	levelOrder(node = this.root, callback) {
+		if (!node) return;
 
-		let queue = [];
-		queue.push(node);
+		let queue = [node];
+		let levelOrdered = [];
 		// while queue is not empty
 		while (queue.length > 0) {
 			// dequeue first element
-			node = queue.shift();
-			// log dequeued val
-			console.log(node.val);
-			// if node.left: add to queue
-			if (node.left) queue.push(node.left);
-			// if node.right: add to queue
-			if (node.right) queue.push(node.right);
+			let currentNode = queue.shift();
+			// check for given callback
+			if (callback) callback(currentNode.val);
+			// if no callback provided: add to levelOrder list
+			else levelOrdered.push(currentNode.val);
+			// if currentNode has left child: add to queue
+			if (currentNode.left) queue.push(currentNode.left);
+			// if currentNode has right child: add to queue
+			if (currentNode.right) queue.push(currentNode.right);
+			// return level ordered array
 		}
+		return levelOrdered;
 	}
 
 	inOrder(node = this.root) {
@@ -222,4 +226,5 @@ const randomNumbers = (size) => {
 const tree = new BST(randomNumbers(12));
 
 console.log('Is this tree balanced?', tree.isBalanced());
-console.log('Level Ordered Tree:', tree.levelOrder());
+console.log('Level Order: ');
+console.log(tree.levelOrder());
