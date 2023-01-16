@@ -149,25 +149,31 @@ class BST {
 		return levelOrdered;
 	}
 
-	inOrder(node = this.root) {
-		if (node == null) return null;
-		this.inOrder(node.left);
-		console.log(node.val);
-		this.inOrder(node.right);
+	inOrder(node = this.root, callback, inOrderArray = []) {
+		if (!node) return null;
+		this.inOrder(node.left, callback, inOrderArray);
+		callback ? callback(node.val) : inOrderArray.push(node.val);
+		this.inOrder(node.right, callback, inOrderArray);
+
+		return inOrderArray;
 	}
 
-	preOrder(node = this.root) {
+	preOrder(node = this.root, callback, preOrderArray = []) {
 		if (!node) return;
-		console.log(node.val);
-		this.inOrder(node.left);
-		this.inOrder(node.right);
+		callback ? callback(node.val) : preOrderArray.push(node.val);
+		this.inOrder(node.left, callback, preOrderArray);
+		this.inOrder(node.right, callback, preOrderArray);
+
+		return preOrderArray;
 	}
 
-	postOrder(node = this.root) {
+	postOrder(node = this.root, callback, postOrderArray = []) {
 		if (!node) return;
-		this.inOrder(node.left);
-		this.inOrder(node.right);
-		console.log(node.val);
+		this.inOrder(node.left, callback, postOrderArray);
+		this.inOrder(node.right, callback, postOrderArray);
+		callback ? callback(node.val) : postOrderArray.push(node.val);
+
+		return postOrderArray;
 	}
 
 	height(node) {
@@ -228,3 +234,9 @@ const tree = new BST(randomNumbers(12));
 console.log('Is this tree balanced?', tree.isBalanced());
 console.log('Level Order: ');
 console.log(tree.levelOrder());
+console.log('In Order: ');
+console.log(tree.inOrder());
+console.log('Pre Order: ');
+console.log(tree.preOrder());
+console.log('Post Order: ');
+console.log(tree.postOrder());
