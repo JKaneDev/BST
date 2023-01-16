@@ -217,9 +217,8 @@ class BST {
 
 	reBalance(node = this.root) {
 		if (!node) return;
-		let array = [];
-		this.inOrder(node, array.push(node.val));
-		return this.buildTree(array);
+		let balancedList = this.inOrder();
+		this.root = this.buildTree(balancedList);
 	}
 }
 
@@ -240,3 +239,11 @@ console.log('Pre Order: ');
 console.log(tree.preOrder());
 console.log('Post Order: ');
 console.log(tree.postOrder());
+
+// Unbalance Tree
+const numbers = [243, 293, 555, 276, 283];
+numbers.forEach((number) => tree.insert(number));
+
+console.log('Is this tree balanced?', tree.isBalanced());
+tree.reBalance();
+console.log('Is this tree balanced?', tree.isBalanced());
