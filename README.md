@@ -12,7 +12,7 @@ This is a javascript file that creates a binary search tree (BST) class. It has 
 
 - To run this file using node, you can create a new javascript file and import the BST class using the following line of code:
 
-Copy code
+Copy The Following Code
 
 ```js
 const BST = require('./BST');
