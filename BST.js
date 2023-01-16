@@ -130,18 +130,18 @@ class BST {
 	levelOrder(node = this.root) {
 		if (node == null) return node;
 
-		let operand;
 		let queue = [];
 		queue.push(node);
 		// while queue is not empty
 		while (queue.length > 0) {
+			// dequeue first element
+			node = queue.shift();
+			// log dequeued val
+			console.log(node.val);
 			// if node.left: add to queue
 			if (node.left) queue.push(node.left);
 			// if node.right: add to queue
 			if (node.right) queue.push(node.right);
-			// dequeue first element from queue, store in operand
-			console.log(operand);
-			operand = queue.pop();
 		}
 	}
 
@@ -194,7 +194,7 @@ class BST {
 	}
 
 	isBalanced(node = this.root) {
-		if (!node) return;
+		if (!node) return true;
 		// check height of left subtree with height function
 		let leftHeight = this.height(node.left);
 		// check height of right subtree with height function
@@ -217,3 +217,9 @@ class BST {
 const randomNumbers = (size) => {
 	return Array.from({ length: size }, () => Math.floor(Math.random() * 100));
 };
+
+// create new BST
+const tree = new BST(randomNumbers(12));
+
+console.log('Is this tree balanced?', tree.isBalanced());
+console.log('Level Ordered Tree:', tree.levelOrder());
