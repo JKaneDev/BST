@@ -14,6 +14,8 @@ This is a javascript file that creates a binary search tree (BST) class. It has 
 
 Copy code
 
-'const BST = require('./BST');'
+```js
+const BST = require('./BST');
+```
 
 You can then create a new instance of the BST class by passing in an array of numbers, and call any of the class methods on the instance as needed.
