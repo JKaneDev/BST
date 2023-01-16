@@ -127,12 +127,12 @@ class BST {
 		return node;
 	}
 
-	levelOrder(node = this.root, operation) {
+	levelOrder(node = this.root) {
 		if (node == null) return node;
 
 		let operand;
 		let queue = [];
-		queue.push(root);
+		queue.push(node);
 		// while queue is not empty
 		while (queue.length > 0) {
 			// if node.left: add to queue
@@ -140,35 +140,30 @@ class BST {
 			// if node.right: add to queue
 			if (node.right) queue.push(node.right);
 			// dequeue first element from queue, store in operand
+			console.log(operand);
 			operand = queue.pop();
-			// perform given operation on operand
-			operation(operand);
 		}
 	}
 
-	inOrder(node = this.root, operation) {
-		// if !node return null
+	inOrder(node = this.root) {
 		if (node == null) return null;
-		// recursively call inorder on node.left
-		this.inOrder(node.left, operation);
-		// call operation on nodes from left to root
-		operation(node.val);
-		// recursively call inorder on node.right
-		this.inOrder(node.right, operation);
+		this.inOrder(node.left);
+		console.log(node.val);
+		this.inOrder(node.right);
 	}
 
-	preOrder(node = this.root, operation) {
+	preOrder(node = this.root) {
 		if (!node) return;
-		operation(node.val);
+		console.log(node.val);
 		this.inOrder(node.left);
 		this.inOrder(node.right);
 	}
 
-	postOrder(node = this.root, operation) {
+	postOrder(node = this.root) {
 		if (!node) return;
 		this.inOrder(node.left);
 		this.inOrder(node.right);
-		operation(node.val);
+		console.log(node.val);
 	}
 
 	height(node) {
@@ -205,7 +200,7 @@ class BST {
 		// check height of right subtree with height function
 		let rightHeight = this.height(node.right);
 		// if difference > 1 return false
-		if (leftHeight - rightHeight > 1) return false;
+		if (Math.abs(leftHeight - rightHeight) > 1) return false;
 		// return recursive isBalanced calls for left and right to traverse the whole tree
 		return this.isBalanced(node.left) && this.isBalanced(node.right);
 	}
@@ -216,26 +211,9 @@ class BST {
 		this.inOrder(node, array.push(node.val));
 		return this.buildTree(array);
 	}
-
-	getRandomNumbers(howMany) {
-		let numbers = [];
-		for (let i = 0; i < howMany; i++) {
-			numbers.push(Math.floor(Math.random() * 100));
-		}
-		return numbers;
-	}
-
-	driverScript() {
-		// get random numbers array and generate tree
-		// check if array is balanced
-		// log levelOrdered tree
-		// log preOrdered tree
-		// log postOrdered tree
-		// log inOrder tree
-		// unbalance tree
-		// confirm tree is unbalanced
-		// balance tree with reBalance
-		// confirm tree is balanced
-		// log again in levelOrder, preOrder, postOrder and inOrder
-	}
 }
+
+// generate random numbers
+const randomNumbers = (size) => {
+	return Array.from({ length: size }, () => Math.floor(Math.random() * 100));
+};
