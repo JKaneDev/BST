@@ -247,3 +247,12 @@ numbers.forEach((number) => tree.insert(number));
 console.log('Is this tree balanced?', tree.isBalanced());
 tree.reBalance();
 console.log('Is this tree balanced?', tree.isBalanced());
+
+console.log('Level Order: ');
+console.log(tree.levelOrder());
+console.log('In Order: ');
+console.log(tree.inOrder());
+console.log('Pre Order: ');
+console.log(tree.preOrder());
+console.log('Post Order: ');
+console.log(tree.postOrder());
